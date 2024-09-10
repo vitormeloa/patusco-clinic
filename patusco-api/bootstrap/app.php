@@ -13,14 +13,19 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->api(prepend: [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+//            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ]);
 
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
 
-        //
+        $middleware->validateCsrfTokens(except: [
+            'http://localhost:8080/*',
+            'http://localhost:8081/*',
+            'http://localhost/api/*',
+            'http://localhost:3000/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
