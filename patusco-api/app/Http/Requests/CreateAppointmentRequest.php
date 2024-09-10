@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\RoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateAppointmentRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->hasRole(RoleEnum::CUSTOMER) || $this->user()->hasRole(RoleEnum::RECEPCIONIST);
+        return $this->user()->hasRole('customer') || $this->user()->hasRole('receptionist');
     }
 
     public function rules(): array
