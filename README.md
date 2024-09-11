@@ -57,7 +57,7 @@ Para rodar este projeto, você precisa ter instalados:
 - PHP 8.1+
 - Composer
 - Docker e Docker Compose
-- Node.js 16+ e NPM
+- Node.js 18.17+ e NPM
 
 ## Instalação e Configuração
 
