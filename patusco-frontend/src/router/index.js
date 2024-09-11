@@ -1,34 +1,65 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
 import Dashboard from '../views/Dashboard.vue';
+import Appointments from "../views/Appointments.vue";
+import CreateAppointments from "../views/CreateAppointments.vue";
+import AssignDoctor from '../views/AssignDoctor.vue';
 
 const routes = [
-    {
-        path: '/login',
-        name: 'login',
-        component: Login,
-    },
-    {
-        path: '/',
-        name: 'dashboard',
-        component: Dashboard,
-        meta: { requiresAuth: true },
-    },
+  {
+    path: '/',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/entrar',
+    name: 'Login',
+    component: Login,
+    meta: { guest: true }
+  },
+  {
+    path: '/cadastro',
+    name: 'Register',
+    component: Register,
+    meta: { guest: true }
+  },
+  {
+    path: '/consultas',
+    name: 'Appointments',
+    component: Appointments,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/consultas/nova',
+    name: 'CreateAppointment',
+    component: CreateAppointments,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/consultas/:id/atribuir-medico',
+    name: 'AssignDoctor',
+    component: AssignDoctor,
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(),
+  routes
 });
 
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = !!localStorage.getItem('auth_token');
+  const isAuthenticated = !!localStorage.getItem('auth_token');
 
-    if (to.matched.some((record) => record.meta.requiresAuth) && !isAuthenticated) {
-        next({ name: 'login' });
-    } else {
-        next();
-    }
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'Login' });
+  } else if (to.meta.guest && isAuthenticated) {
+    next({ path: '/' });
+  } else {
+    next();
+  }
 });
 
 export default router;

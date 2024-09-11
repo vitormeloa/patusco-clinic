@@ -1,19 +1,18 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { createVuetify } from 'vuetify';
+import router from './router';
+import store from './store';
 import 'vuetify/styles';
-import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import { createVuetify } from 'vuetify';
 
-const vuetify = createVuetify({
-    icons: {
-        defaultSet: 'mdi',
-        aliases,
-        sets: {
-            mdi,
-        },
-    },
-});
+import '@mdi/font/css/materialdesignicons.css';
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
 
-createApp(App)
-    .use(vuetify)
-    .mount('#app');
+const vuetify = createVuetify();
+
+const app = createApp(App);
+
+app.use(router);
+app.use(store);
+app.use(vuetify);
+app.mount('#app');
