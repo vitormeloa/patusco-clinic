@@ -20,6 +20,7 @@ class CreateAppointmentRequest extends FormRequest
             'symptoms' => 'required|string|max:500',
             'appointment_date' => 'required|date|after_or_equal:today',
             'period' => 'required|in:morning,afternoon',
+            'doctor_id' => 'nullable|exists:users,id',
         ];
     }
 }

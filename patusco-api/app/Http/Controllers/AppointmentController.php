@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssignDoctorRequest;
 use App\Http\Requests\CreateAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
+use App\Models\User;
 use App\Services\AppointmentService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
@@ -47,5 +49,17 @@ class AppointmentController extends Controller
         Gate::authorize('delete', $appointment);
         $this->appointmentService->deleteAppointment($appointment);
         return $this->deleted();
+    }
+
+    public function assignDoctor(AssignDoctorRequest $request, Appointment $appointment): JsonResponse
+    {
+        $appointment->update([
+            'doctor_id' => $request->doctor_id,
+        ]);
+
+        return response()->json([
+            'message' => 'Médico atribuído com sucesso.',
+            'appointment' => $appointment,
+        ]);
     }
 }
