@@ -78,7 +78,6 @@ export default {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
           },
         });
-        console.log('Consultas recebidas:', response.data);
         this.appointments = response.data.data;
       } catch (error) {
         if (error.response) {

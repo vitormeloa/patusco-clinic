@@ -36,13 +36,10 @@ class RegisteredUserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        // Disparar o evento de registro
         event(new Registered($user));
 
-        // Criar o token de API para autenticação
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Retornar resposta em formato JSON
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',

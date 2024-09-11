@@ -13,7 +13,5 @@ test('new users can register', function () {
         'role_id' => $role->id,
     ]);
 
-    $response->assertStatus(204);
-    $this->assertAuthenticated();
-    $response->assertNoContent();
+    $response->assertStatus(201);
 });
