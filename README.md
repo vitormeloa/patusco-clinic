@@ -63,6 +63,16 @@ Para rodar este projeto, você precisa ter instalados:
 
 ### Configuração Automatizada
 
+1. Clone o repositório:
+    ```bash
+    git clone <url>
+    ```
+   
+2. Acesse o diretório do projeto:
+    ```bash
+    cd patusco-clinic
+    ```
+
 Execute o script de configuração automática que verifica e instala as dependências necessárias e prepara o ambiente:
 
 1. Certifique-se de que o script tem permissões de execução:
