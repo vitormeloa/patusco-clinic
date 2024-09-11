@@ -102,7 +102,7 @@ export default {
         });
         this.fetchAppointments();
       } catch (error) {
-        alert('Erro ao excluir a consulta.');
+        alert('Erro ao excluir a consulta. ' . error.response);
       }
     },
   },
