@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'http://localhost:8081/*',
             'http://localhost/api/*',
             'http://localhost:3000/*',
+            'http://localhost:5174/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
