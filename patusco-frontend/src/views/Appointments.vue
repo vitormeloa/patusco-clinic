@@ -18,7 +18,7 @@
       </v-card-text>
     </v-card>
 
-    <v-card class="elevation-12 pa-4" width="800">
+    <v-card class="elevation-12 pa-4 mt-10" width="800">
       <v-card-title class="text-center">Consultas</v-card-title>
       <v-card-text>
         <v-data-table
