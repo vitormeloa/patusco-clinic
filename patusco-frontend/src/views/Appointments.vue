@@ -27,10 +27,6 @@
             class="elevation-1"
             item-value="id"
         >
-          <template v-slot:item.doctor_id="{ item }">
-            <span v-if="item.doctor_id">Dr. {{ item.doctor_id }}</span>
-            <span v-else>Não atribuído</span>
-          </template>
 
           <template v-slot:item.period="{ item }">
             {{ item.period === 'morning' ? 'Manhã' : 'Tarde' }}
@@ -63,7 +59,6 @@ export default {
         { text: 'Nome do Animal', value: 'animal_name', align: 'start' },
         { text: 'Tipo do Animal', value: 'animal_type', align: 'start' },
         { text: 'Data da Consulta', value: 'appointment_date', align: 'start' },
-        { text: 'Médico', value: 'doctor_id', align: 'start' },
         { text: 'Período', value: 'period', align: 'start' },
         { text: 'Sintomas', value: 'symptoms', align: 'start' },
         { text: 'Ações', value: 'actions', align: 'start', sortable: false },

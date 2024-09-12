@@ -51,13 +51,12 @@ export default {
         });
 
         const token = response.data.access_token;
-        localStorage.setItem('auth_token', token);
         this.$store.dispatch('login', token);
         this.$router.push('/');
       } catch (error) {
         alert('Erro ao fazer login.');
       }
-    }
+    },
   }
 };
 </script>
