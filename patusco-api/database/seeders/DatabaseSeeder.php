@@ -17,9 +17,21 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Customer',
+            'email' => 'customer@example.com',
             'role_id' => 1,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Receptionist',
+            'email' => 'receptionist@example.com',
+            'role_id' => 2,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Doctor',
+            'email' => 'doctor@example.com',
+            'role_id' => 3,
         ]);
 
         User::factory(10)->create(['role_id' => fake()->randomElement(Role::pluck('id')->toArray())]);

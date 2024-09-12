@@ -137,6 +137,19 @@ Frontend (patusco-frontend)
 5. Para sair, faça logout. O token de autorização será removido de localStorage.
 6. O frontend é responsivo e se adapta a diferentes tamanhos de tela.
 
+#### Login
+1. Acesse a página de login em `http://localhost:5174/login`
+2. Faça login com um usuário cadastrado. Caso já tenha executado os seeders, já existem usuários cadastrados com diferentes funções:
+    - **Cliente**:
+        - Email: customer@example.com`
+        - Senha: password
+    - **Recepcionista**:
+        - Email: receptionist@example.com
+        - Senha: password
+    - **Médico**:
+        - Email: doctor@example.com
+        - Senha: password
+
 ## Testes
 ### Backend (patusco-api)
 1. Execute os testes:
