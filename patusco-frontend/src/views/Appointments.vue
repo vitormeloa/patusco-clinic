@@ -34,7 +34,7 @@
           <template v-slot:item.actions="{ item }">
             <v-row class="d-flex justify-center justify-space-between">
               <v-col cols="4" class="d-flex justify-center">
-                <v-btn
+                <v-btn class="actions"
                     color="primary"
                     v-if="!item.doctor_id"
                     @click="$router.push(`/consultas/${item.id}/atribuir-medico`)">
@@ -42,12 +42,12 @@
                 </v-btn>
               </v-col>
               <v-col cols="4" class="d-flex justify-center">
-                <v-btn color="primary" @click="$router.push(`/consultas/${item.id}`)">
+                <v-btn class="actions" color="primary" @click="$router.push(`/consultas/${item.id}`)">
                   Editar
                 </v-btn>
               </v-col>
               <v-col cols="4" class="d-flex justify-center">
-                <v-btn color="error" @click="deleteAppointment(item.id)">
+                <v-btn class="actions" color="error" @click="deleteAppointment(item.id)">
                   Excluir
                 </v-btn>
               </v-col>
@@ -132,9 +132,9 @@ export default {
   text-align: center;
 }
 
-.v-btn {
+.v-btn.actions {
   width: 100%;
-  font-size: 10px;
+  font-size: 12px;
   margin-outside: 10px;
   margin-inline: 10px;
 }
