@@ -36,6 +36,10 @@ class AppointmentController extends Controller
         return $this->created($appointment);
     }
 
+    public function show(Appointment $appointment): JsonResponse
+    {
+        return response()->json($appointment);
+    }
 
     public function update(UpdateAppointmentRequest $request, Appointment $appointment): JsonResponse
     {
@@ -53,13 +57,9 @@ class AppointmentController extends Controller
 
     public function assignDoctor(AssignDoctorRequest $request, Appointment $appointment): JsonResponse
     {
-        $appointment->update([
-            'doctor_id' => $request->doctor_id,
-        ]);
+        Gate::authorize('assignDoctor', $appointment);
+        $this->appointmentService->assignDoctor($appointment, $request->doctor_id);
 
-        return response()->json([
-            'message' => 'Médico atribuído com sucesso.',
-            'appointment' => $appointment,
-        ]);
+        return $this->updated($appointment);
     }
 }

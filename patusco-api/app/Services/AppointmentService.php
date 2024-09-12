@@ -21,7 +21,7 @@ class AppointmentService
 
     public function createAppointment($data): Appointment
     {
-        $data['customer_id'] = Auth::id();
+        $data['customer_id'] = Auth::user()->role_id === 1 ? Auth::id() : $data['customer_id'];
         return Appointment::create($data);
     }
 
@@ -33,5 +33,12 @@ class AppointmentService
     public function deleteAppointment(Appointment $appointment): ?bool
     {
         return $appointment->delete();
+    }
+
+    public function assignDoctor(Appointment $appointment, $doctorId): bool
+    {
+        return $appointment->update([
+            'doctor_id' => $doctorId,
+        ]);
     }
 }

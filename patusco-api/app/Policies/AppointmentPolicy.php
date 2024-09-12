@@ -41,4 +41,9 @@ class AppointmentPolicy
     {
         return $user->hasRole('receptionist');
     }
+
+    public function assignDoctor(User $user, Appointment $appointment): bool
+    {
+        return $user->hasRole('receptionist');
+    }
 }

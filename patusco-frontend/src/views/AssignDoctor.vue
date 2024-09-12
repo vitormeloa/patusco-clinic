@@ -4,15 +4,13 @@
       <v-card-title class="text-center">Atribuir Médico</v-card-title>
       <v-card-text>
         <v-form @submit.prevent="assignDoctor">
-          <v-select
-              v-model="selectedDoctor"
-              :items="doctors"
-              label="Selecione o Médico"
-              item-text="name"
-              item-value="id"
-              required
-          ></v-select>
-          <v-btn type="submit" color="primary" block>Atribuir</v-btn>
+          <select v-model="selectedDoctor" required>
+            <option disabled value="">Selecione um Médico</option>
+            <option v-for="doctor in doctors" :key="doctor.id" :value="doctor.id">
+              {{ doctor.name }}
+            </option>
+          </select>
+          <v-btn type="submit" color="primary" block class="mt-3">Atribuir</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
@@ -26,7 +24,7 @@ export default {
   name: 'AssignDoctor',
   data() {
     return {
-      selectedDoctor: null,
+      selectedDoctor: "",
       doctors: [],
     };
   },
@@ -38,8 +36,8 @@ export default {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
           },
         });
-        this.doctors = response.data.data;
-        console.log('Médicos:', this.doctors);
+        this.doctors = response.data.data || [];
+        console.log('Médicos recebidos:', this.doctors);
       } catch (error) {
         console.error('Erro ao carregar médicos:', error.response);
         alert('Erro ao carregar médicos.');
@@ -70,6 +68,14 @@ export default {
 </script>
 
 <style scoped>
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .v-container {
   max-height: 80vh;
 }

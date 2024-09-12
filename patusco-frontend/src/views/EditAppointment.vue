@@ -1,9 +1,9 @@
 <template>
   <v-container class="d-flex align-center justify-center fill-height">
     <v-card class="elevation-12 pa-4" width="600">
-      <v-card-title class="text-center">Nova Consulta</v-card-title>
+      <v-card-title class="text-center">Editar Consulta</v-card-title>
       <v-card-text>
-        <v-form @submit.prevent="createAppointment">
+        <v-form @submit.prevent="updateAppointment">
 
           <div v-if="isReceptionist" class="mb-3">
             <label for="customer" class="custom-label">Selecione o Cliente</label>
@@ -56,7 +56,7 @@
             </select>
           </div>
 
-          <v-btn type="submit" color="primary" block>Criar Consulta</v-btn>
+          <v-btn type="submit" color="primary" block>Salvar Alterações</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
@@ -83,17 +83,29 @@ export default {
     };
   },
   methods: {
-    async createAppointment() {
+    async fetchAppointment() {
       try {
-        await axios.post('http://localhost/api/appointments', this.appointment, {
+        const response = await axios.get(`http://localhost/api/appointments/${this.$route.params.id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
           },
         });
-        alert('Consulta criada com sucesso!');
+        this.appointment = response.data;
+      } catch (error) {
+        alert('Erro ao carregar consulta.');
+      }
+    },
+    async updateAppointment() {
+      try {
+        await axios.put(`http://localhost/api/appointments/${this.$route.params.id}`, this.appointment, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+          },
+        });
+        alert('Consulta atualizada com sucesso!');
         this.$router.push('/consultas');
       } catch (error) {
-        alert('Erro ao criar consulta.');
+        alert('Erro ao atualizar consulta.');
       }
     },
     async fetchCustomers() {
@@ -129,6 +141,7 @@ export default {
   },
   mounted() {
     this.checkUserRole();
+    this.fetchAppointment();
   },
 };
 </script>

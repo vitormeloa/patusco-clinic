@@ -21,6 +21,7 @@ class CreateAppointmentRequest extends FormRequest
             'appointment_date' => 'required|date|after_or_equal:today',
             'period' => 'required|in:morning,afternoon',
             'doctor_id' => 'nullable|exists:users,id',
+            'customer_id' => 'nullable|exists:users,id',
         ];
     }
 }

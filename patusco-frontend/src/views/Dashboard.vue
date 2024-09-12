@@ -1,7 +1,6 @@
 <template>
   <v-container class="d-flex align-center justify-center mt-5">
     <v-card class="elevation-12 pa-4" width="1000">
-<!--      <v-card-title class="text-center">Dashboard</v-card-title>-->
       <v-card-text>
         <h1>Olá, Seja bem Vindo!</h1>
         <h3 class="text-center"> Patusco - Clínica de Pets </h3>

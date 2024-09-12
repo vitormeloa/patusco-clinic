@@ -5,6 +5,7 @@ import Dashboard from '../views/Dashboard.vue';
 import Appointments from "../views/Appointments.vue";
 import CreateAppointments from "../views/CreateAppointments.vue";
 import AssignDoctor from '../views/AssignDoctor.vue';
+import EditAppointment from "../views/EditAppointment.vue";
 
 const routes = [
   {
@@ -42,6 +43,12 @@ const routes = [
     name: 'AssignDoctor',
     component: AssignDoctor,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/consultas/:id/editar',
+    name: 'EditAppointment',
+    component: EditAppointment,
+    meta: { requiresAuth: true }
   },
 ];
 

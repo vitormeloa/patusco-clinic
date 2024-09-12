@@ -10,7 +10,7 @@
             </v-btn>
           </v-col>
           <v-col cols="6" class="d-flex justify-center">
-            <v-btn color="primary" @click="$router.push('/consultas/nova')" block>
+            <v-btn color="primary" v-if="isReceptionist || isCustomer" @click="$router.push('/consultas/nova')" block>
               Nova Consulta
             </v-btn>
           </v-col>
@@ -32,21 +32,18 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <v-row class="d-flex justify-center justify-space-between">
-              <v-col cols="4" class="d-flex justify-center">
-                <v-btn class="actions"
-                    color="primary"
-                    v-if="!item.doctor_id"
-                    @click="$router.push(`/consultas/${item.id}/atribuir-medico`)">
+            <v-row class="d-flex justify-center">
+              <v-col cols="4" v-if="isReceptionist" class="d-flex justify-center">
+                <v-btn class="actions" color="primary" @click="$router.push(`/consultas/${item.id}/atribuir-medico`)">
                   Médico
                 </v-btn>
               </v-col>
-              <v-col cols="4" class="d-flex justify-center">
-                <v-btn class="actions" color="primary" @click="$router.push(`/consultas/${item.id}`)">
+              <v-col cols="4" v-if="isReceptionist || isDoctor" class="d-flex justify-center">
+                <v-btn class="actions" color="primary" @click="$router.push(`/consultas/${item.id}/editar`)">
                   Editar
                 </v-btn>
               </v-col>
-              <v-col cols="4" class="d-flex justify-center">
+              <v-col cols="4" v-if="isReceptionist" class="d-flex justify-center">
                 <v-btn class="actions" color="error" @click="deleteAppointment(item.id)">
                   Excluir
                 </v-btn>
@@ -67,7 +64,6 @@
 import axios from 'axios';
 
 export default {
-  name: 'Appointments',
   data() {
     return {
       appointments: [],
@@ -79,6 +75,9 @@ export default {
         { text: 'Sintomas', value: 'symptoms', align: 'start' },
         { text: 'Ações', value: 'actions', align: 'start', sortable: false },
       ],
+      isReceptionist: false,
+      isDoctor: false,
+      isCustomer: false,
     };
   },
   methods: {
@@ -91,16 +90,8 @@ export default {
         });
         this.appointments = response.data.data;
       } catch (error) {
-        if (error.response) {
-          console.error('Erro na resposta da API:', error.response.data);
-          alert(`Erro ao carregar consultas: ${error.response.status} - ${error.response.data.message}`);
-        } else if (error.request) {
-          console.error('Nenhuma resposta recebida:', error.request);
-          alert('Erro ao carregar consultas: Nenhuma resposta do servidor.');
-        } else {
-          console.error('Erro ao configurar a requisição:', error.message);
-          alert('Erro ao carregar consultas.');
-        }
+        console.error('Erro ao carregar consultas.', error);
+        alert('Erro ao carregar consultas.');
       }
     },
     async deleteAppointment(id) {
@@ -112,21 +103,39 @@ export default {
         });
         this.fetchAppointments();
       } catch (error) {
+        console.error('Erro ao excluir a consulta.', error);
         alert('Erro ao excluir a consulta.');
+      }
+    },
+    async checkUserRole() {
+      try {
+        const response = await axios.get('http://localhost/api/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+          },
+        });
+        const user = response.data;
+        if (user.role_id === 1) {
+          this.isCustomer = true;
+        } else if (user.role_id === 2) {
+          this.isReceptionist = true;
+        } else if (user.role_id === 3) {
+          this.isDoctor = true;
+        }
+      } catch (error) {
+        console.error('Erro ao verificar o usuário.', error);
       }
     },
   },
   mounted() {
+    this.checkUserRole();
     this.fetchAppointments();
   },
 };
 </script>
 
 <style scoped>
-.v-container {
-  min-height: 100vh;
-  max-height: 100vh;
-}
+
 
 .v-card-title {
   text-align: center;
@@ -135,7 +144,7 @@ export default {
 .v-btn.actions {
   width: 100%;
   font-size: 12px;
-  margin-outside: 10px;
-  margin-inline: 10px;
+  margin-outside: 15px;
+  margin-inline: 30px;
 }
 </style>
