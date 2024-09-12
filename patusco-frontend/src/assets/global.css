@@ -1,0 +1,11 @@
+.v-container {
+    min-height: 100vh;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-3 {
+    margin-top: 16px;
+}
