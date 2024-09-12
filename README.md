@@ -127,7 +127,7 @@ Frontend (patusco-frontend)
 3. Para autenticar-se, faça uma requisição POST para `http://localhost/api/login` com o email e senha de um usuário cadastrado. O token de autorização será retornado no corpo da resposta.
 4. Para acessar os endpoints protegidos, adicione o token de autorização nos headers da requisição:
     ```http
-    Authorization Bearer <token>
+    Authorization: Bearer <token>
     ```
 ### Frontend (patusco-frontend)
 1. Acesse o frontend em `http://localhost:5174`
