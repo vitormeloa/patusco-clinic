@@ -4,7 +4,7 @@
       <v-card-title class="text-center">Gerenciar Consultas</v-card-title>
       <v-card-text>
         <v-row class="d-flex justify-center">
-          <v-col cols="6" class="d-flex justify-center">
+          <v-col :cols="isDoctor ? 12 : 6" class="d-flex justify-center">
             <v-btn color="primary" @click="fetchAppointments" block>
               Carregar Consultas
             </v-btn>
