@@ -126,7 +126,7 @@ Frontend (patusco-frontend)
 2. A API está protegida por autenticação Sanctum. Para acessar os endpoints da API, você precisa autenticar-se e fornecer um token de autorização nos headers da requisição.
 3. Para autenticar-se, faça uma requisição POST para `http://localhost/api/login` com o email e senha de um usuário cadastrado. O token de autorização será retornado no corpo da resposta.
 4. Para acessar os endpoints protegidos, adicione o token de autorização nos headers da requisição:
-    ```http
+    ```bash
     Authorization: Bearer <token>
     ```
 ### Frontend (patusco-frontend)
