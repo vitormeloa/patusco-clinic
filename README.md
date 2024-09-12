@@ -141,7 +141,7 @@ Frontend (patusco-frontend)
 1. Acesse a página de login em `http://localhost:5174/login`
 2. Faça login com um usuário cadastrado. Caso já tenha executado os seeders, já existem usuários cadastrados com diferentes funções:
     - **Cliente**:
-        - Email: customer@example.com`
+        - Email: customer@example.com
         - Senha: password
     - **Recepcionista**:
         - Email: receptionist@example.com
