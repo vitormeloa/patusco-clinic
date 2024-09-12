@@ -4,12 +4,14 @@
       <v-card-title class="text-center">Atribuir Médico</v-card-title>
       <v-card-text>
         <v-form @submit.prevent="assignDoctor">
-          <select v-model="selectedDoctor" required>
-            <option disabled value="">Selecione um Médico</option>
-            <option v-for="doctor in doctors" :key="doctor.id" :value="doctor.id">
-              {{ doctor.name }}
-            </option>
-          </select>
+          <div class="custom-select-wrapper">
+            <select v-model="selectedDoctor" required>
+              <option disabled value="">Selecione um Médico</option>
+              <option v-for="doctor in doctors" :key="doctor.id" :value="doctor.id">
+                {{ doctor.name }}
+              </option>
+            </select>
+          </div>
           <v-btn type="submit" color="primary" block class="mt-3">Atribuir</v-btn>
         </v-form>
       </v-card-text>
@@ -47,7 +49,7 @@ export default {
       try {
         await axios.put(
             `http://localhost/api/appointments/${this.$route.params.id}/assign-doctor`,
-            {doctor_id: this.selectedDoctor},
+            { doctor_id: this.selectedDoctor },
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
@@ -70,10 +72,35 @@ export default {
 <style scoped>
 select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 16px;
+  padding: 10px 15px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: white;
+  margin-bottom: 16px;
+  transition: border-color 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+select:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-select-wrapper::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-size: 12px;
+  color: #999;
+  pointer-events: none;
 }
 
 .v-container {
