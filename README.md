@@ -100,7 +100,7 @@ Backend (patusco-api)
     ```
 4. Configure o ambiente de desenvolvimento com Docker:
     ```bash
-    php artisan sail:install
+    php artisan sail:install --with=mysql
     ```
 5. Inicie o ambiente de desenvolvimento:
     ```bash
